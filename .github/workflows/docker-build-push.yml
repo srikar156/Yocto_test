@@ -26,7 +26,6 @@ jobs:
         with:
           context: ./docker/yoctobuilder          
           file: ./docker/yoctobuilder/Dockerfile   
-          push: true
         run: |
           docker build -t ${{ secrets.DOCKER_USERNAME }}/yoctobuilder:v1.9 .
       
