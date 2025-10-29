@@ -26,7 +26,7 @@ jobs:
         with:
           context: ./docker/yoctobuilder          
           file: ./docker/yoctobuilder/Dockerfile   
-        run: |
+          push: true
           docker build -t ${{ secrets.DOCKER_USERNAME }}/yoctobuilder:v1.9 .
       
       # Step 4: Push the Docker image to Docker Hub
