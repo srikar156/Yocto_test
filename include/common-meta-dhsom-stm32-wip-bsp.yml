@@ -1,0 +1,23 @@
+header:
+  version: 14
+  includes:
+    - include/common-settings.yml
+
+distro: nodistro
+
+target:
+  - core-image-base
+
+repos:
+  poky:
+    url: https://git.yoctoproject.org/poky
+    layers:
+      meta:
+
+  meta-mainline-common:
+    url: https://source.denx.de/denx/meta-mainline-common.git
+    branch: main
+
+  meta-dhsom-stm32-wip-bsp:
+    url: https://github.com/dh-electronics/meta-dhsom-stm32-wip-bsp.git
+    branch: stm32mp25xx-initial-bring-up

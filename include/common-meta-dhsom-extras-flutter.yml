@@ -1,0 +1,16 @@
+header:
+  version: 14
+  includes:
+    - include/common-meta-dhsom-extras-clang.yml
+
+local_conf_header:
+  ffmpeg: |
+    LICENSE_FLAGS_ACCEPTED = "commercial"
+    TOOLCHAIN_HOST_TASK:append = " nativesdk-flutter-sdk"
+
+repos:
+  meta-flutter:
+    url: https://github.com/meta-flutter/meta-flutter.git
+    layers:
+      .:
+      meta-flutter-apps:

@@ -1,0 +1,47 @@
+# Set the image used to build the pipeline.
+image:
+  name: seakeeper/yoctobuilder:v1.9
+  username: $DOCKER_HUB_USERNAME
+  password: $DOCKER_HUB_PASSWORD
+
+# Define steps for pipeline triggers.
+definitions:
+  services:
+    docker:
+      memory: 7168
+
+  steps:
+    - step: &build
+        name: 'Build'
+        size: 16x
+        script:
+          # the 'gitrepostatus' component runs git commands on our repo, but the checkout
+          # user is different from the current user and git cries. This line makes it shush.
+          - git config --global --add safe.directory ${BITBUCKET_CLONE_DIR}
+          - ${BITBUCKET_CLONE_DIR}/scripts/build.sh --kasfile=kas-prod --priv-key=${PRIV_KEY_SIGNING} --repo-slug=${BITBUCKET_REPO_SLUG} --build-number=${BITBUCKET_BUILD_NUMBER}
+
+          # Upload a file to the repositories 'downloads' folder.
+          - pipe: atlassian/bitbucket-upload-file:0.7.5
+            variables:
+              BITBUCKET_ACCESS_TOKEN: $DOWNLOADS_UPLOAD_TOKEN
+              FILENAME: "${BITBUCKET_CLONE_DIR}/build/sm*"
+
+
+# Triggers for the pipeline.
+pipelines:
+  branches:
+
+    # Run whenever there is a push to master.
+    master:
+      - step: *build
+
+    # Run whenever there is a push to a develop/* branch.
+    develop/*:
+      - step: *build
+
+  # Run on every pull request.
+  pull-requests:
+    '**':
+      - step: *build
+
+

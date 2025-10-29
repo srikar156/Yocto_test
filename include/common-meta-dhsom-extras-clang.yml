@@ -1,0 +1,6 @@
+header:
+  version: 14
+
+repos:
+  meta-clang:
+    url: https://github.com/kraj/meta-clang.git
