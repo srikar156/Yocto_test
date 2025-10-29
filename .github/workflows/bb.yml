@@ -26,10 +26,10 @@ jobs:
 
       - name: Configure git safe directory
         run: git config --global --add safe.directory $GITHUB_WORKSPACE
-
+       - name: Make build script executable
+        run: chmod +x $GITHUB_WORKSPACE/scripts/build.sh
       - name: Run build
-        run: |
-          $GITHUB_WORKSPACE/scripts/build.sh --kasfile=kas-prod --priv-key=${PRIV_KEY_SIGNING} --repo-slug=${{ github.repository }} --build-number=${{ github.run_number }}
+        run: $GITHUB_WORKSPACE/scripts/build.sh --kasfile=kas-prod --priv-key=${PRIV_KEY_SIGNING} --repo-slug=${{ github.repository }} --build-number=${{ github.run_number }}
         env:
           PRIV_KEY_SIGNING: ${{ secrets.PRIV_KEY_SIGNING }}
 
