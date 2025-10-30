@@ -90,7 +90,7 @@ KAS_CONFIG_FILES="${REPO_DIR}/${KASFILE}"
 
 # Add the user if it does not exist
 if [ ! -d /home/${NEW_USER} ]; then
-    id -u ${NEW_USER} &>/dev/null || adduser --quiet --disabled-password --shell /bin/bash --home /home/${NEW_USER} --gecos "User" ${NEW_USER}
+    id -u ${NEW_USER} &>/dev/null || sudo adduser --quiet --disabled-password --shell /bin/bash --home /home/${NEW_USER} --gecos "User" ${NEW_USER}
 fi
 export KAS_ALLOW_ROOT=yes
 
