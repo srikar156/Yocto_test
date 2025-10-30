@@ -94,14 +94,14 @@ if [ ! -d /home/${NEW_USER} ]; then
 fi
 export KAS_ALLOW_ROOT=yes
 
-chown "${NEW_USER}" "${REPO_DIR}"
-chmod +wrx "${REPO_DIR}"
+sudo chown "${NEW_USER}" "${REPO_DIR}"
+sudo chmod +wrx "${REPO_DIR}"
 
 if [ ! -d "$REPO_DIR"/build ]; then
-    mkdir -p "$REPO_DIR"/build
-    chown "${NEW_USER}" "$REPO_DIR"/build
-    chown -R "${NEW_USER}" "$REPO_DIR"/*
-    chmod +wrx "$REPO_DIR"/build
+    sudo mkdir -p "$REPO_DIR"/build
+    sudo chown "${NEW_USER}" "$REPO_DIR"/build
+    sudo chown -R "${NEW_USER}" "$REPO_DIR"/*
+    sudo chmod +wrx "$REPO_DIR"/build
 fi
 
 # Get the number of CPU cores
