@@ -107,7 +107,7 @@ fi
 # Get the number of CPU cores
 NR_CORES=$(nproc)
 
-su -p -c "BB_NUMBER_THREADS=${NR_CORES} ${REPO_DIR}/../kas/run-kas build || exit $?" ${NEW_USER}
+sudo -u ${NEW_USER} BB_NUMBER_THREADS=${NR_CORES} ${REPO_DIR}/../kas/run-kas build || true
 
 echo "Now create the file for the downloads directory:"
 
