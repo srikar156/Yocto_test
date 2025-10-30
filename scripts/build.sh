@@ -107,7 +107,7 @@ fi
 # Get the number of CPU cores
 NR_CORES=$(nproc)
 
-sudo -u skrladmin BB_NUMBER_THREADS=4 $GITHUB_WORKSPACE/kas/run-kas build || true
+sudo -u ${NEW_USER} BB_NUMBER_THREADS=${NR_CORES} ${REPO_DIR}/../kas/run-kas build || exit $?
 
 echo "Now create the file for the downloads directory:"
 
