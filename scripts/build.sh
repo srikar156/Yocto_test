@@ -131,4 +131,4 @@ then
     echo "Couldn't split zip file"
 fi
 
-chown -R "${NEW_USER}" "$REPO_DIR"/build/sm*
+sudo chown -R "${NEW_USER}" "$REPO_DIR"/build/sm*
