@@ -8,6 +8,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    steps:
+      - name: Free disk space
+        run: |
+          echo "Before cleanup:"
+          df -h /
     container:
       image: sriramdock/yoctobuilder:v1.9
       credentials:
