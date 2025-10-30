@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Free disk space
-         run: |
+        run: |
           echo "Removing large, unnecessary preinstalled packages..."
           sudo rm -rf /usr/share/dotnet
           sudo rm -rf /opt/ghc
