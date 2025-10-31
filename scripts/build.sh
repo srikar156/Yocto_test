@@ -90,24 +90,24 @@ KAS_CONFIG_FILES="${REPO_DIR}/${KASFILE}"
 
 # Add the user if it does not exist
 if [ ! -d /home/${NEW_USER} ]; then
-    id -u ${NEW_USER} &>/dev/null || sudo adduser --quiet --disabled-password --shell /bin/bash --home /home/${NEW_USER} --gecos "User" ${NEW_USER}
+    id -u ${NEW_USER} &>/dev/null || adduser --quiet --disabled-password --shell /bin/bash --home /home/${NEW_USER} --gecos "User" ${NEW_USER}
 fi
 export KAS_ALLOW_ROOT=yes
 
-sudo chown "${NEW_USER}" "${REPO_DIR}"
-sudo chmod +wrx "${REPO_DIR}"
+chown "${NEW_USER}" "${REPO_DIR}"
+chmod +wrx "${REPO_DIR}"
 
 if [ ! -d "$REPO_DIR"/build ]; then
-    sudo mkdir -p "$REPO_DIR"/build
-    sudo chown "${NEW_USER}" "$REPO_DIR"/build
-    sudo chown -R "${NEW_USER}" "$REPO_DIR"/*
-    sudo chmod +wrx "$REPO_DIR"/build
+    mkdir -p "$REPO_DIR"/build
+    chown "${NEW_USER}" "$REPO_DIR"/build
+    chown -R "${NEW_USER}" "$REPO_DIR"/*
+    chmod +wrx "$REPO_DIR"/build
 fi
 
 # Get the number of CPU cores
 NR_CORES=$(nproc)
-sudo chmod +x ${REPO_DIR}/../kas/run-kas
-sudo -u ${NEW_USER} BB_NUMBER_THREADS=${NR_CORES} ${REPO_DIR}/../kas/run-kas build || exit $?
+
+su -p -c "BB_NUMBER_THREADS=${NR_CORES} ${REPO_DIR}/../kas/run-kas build || exit $?" ${NEW_USER}
 
 echo "Now create the file for the downloads directory:"
 
@@ -131,4 +131,4 @@ then
     echo "Couldn't split zip file"
 fi
 
-sudo chown -R "${NEW_USER}" "$REPO_DIR"/build/sm*
+chown -R "${NEW_USER}" "$REPO_DIR"/build/sm*
